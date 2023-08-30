@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useReducer} from 'react';
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
 
 const Login = (props) => {
+
   const [enteredEmail, setEnteredEmail] = useState('');
   const [emailIsValid, setEmailIsValid] = useState();
   const [enteredPassword, setEnteredPassword] = useState('');
@@ -12,37 +12,43 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   // run when email and password fields changed
-  useEffect(()=>{
-    console.log('changing');
-    // inbuilt func, provide and variable to call it
-    const timer = setTimeout(() => {
-      setFormIsValid(enteredEmail.includes('@') && enteredPassword.length > 6);
-      console.log("validation");
-    },500);
+  // useEffect(()=>{
+  //   console.log('changing');
+  //   // inbuilt func, provide and variable to call it
+  //   const timer = setTimeout(() => {
+  //     setFormIsValid(enteredEmail.includes('@') && enteredPassword.length > 6);
+  //     console.log("validation");
+  //   },500);
 
-    // this is clean up function provided by useEffect
-    return (() => {
-      clearTimeout(timer);           // func provided by browser, this will remove timers
-    });
-  }, [enteredEmail, enteredPassword]);
+  //   // this is clean up function provided by useEffect
+  //   return (() => {
+  //     clearTimeout(timer);           // func provided by browser, this will remove timers
+  //   });
+  // }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
+    setFormIsValid(
+      event.target.value.includes('@') && enteredPassword.trim().length > 6
+    );
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
+    setFormIsValid(
+      enteredEmail.includes('@') && event.target.value.trim().length > 6
+    );
   };
 
-  // // instantenous validation check, border red if not valid
-  // const validateEmailHandler = () => {
-  //   setEmailIsValid(enteredEmail.includes('@'));
-  // };
+  // instantenous validation check, border red if not valid
+  const validateEmailHandler = () => {
+    setEmailIsValid(enteredEmail.includes('@'));
+  };
 
-  // // instantenous validation check, border red if not valid
-  // const validatePasswordHandler = () => {
-  //   setPasswordIsValid(enteredPassword.trim().length > 6);
-  // };
+  // instantenous validation check, border red if not valid
+  const validatePasswordHandler = () => {
+    setPasswordIsValid(enteredPassword.trim().length > 6);
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -63,7 +69,7 @@ const Login = (props) => {
             id="email"
             value={enteredEmail}
             onChange={emailChangeHandler}
-            // onBlur={validateEmailHandler}
+            onBlur={validateEmailHandler}
           />
         </div>
         <div
@@ -77,7 +83,7 @@ const Login = (props) => {
             id="password"
             value={enteredPassword}
             onChange={passwordChangeHandler}
-            // onBlur={validatePasswordHandler}
+            onBlur={validatePasswordHandler}
           />
         </div>
         <div className={classes.actions}>
