@@ -25,4 +25,4 @@ for their validation etc. Basically some action in response of some another acti
 ### useReducers 
 - When we have multiple states and multiple dependencies then we should use it.
 - It is more complex than the useState but the outcome is same.
-- It current app we handle enteredEmail and isEnteredEmailValid state.
+- In current app we handle enteredEmail and isEnteredEmailValid state.
