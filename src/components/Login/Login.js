@@ -7,8 +7,8 @@ import Button from '../UI/Button/Button';
 // this function is automatically called by React, not depend on component
 // state contains the prev state values 
 // action having the new state values
+
 const emailReducer = (state, action) => {
-  
   // after each key stoke this will be checked
   if(action.type === 'EMAIL_INP'){
     return({value:action.val, isValid:action.val.includes('@')});
@@ -26,33 +26,53 @@ const emailReducer = (state, action) => {
 }
 
 
+const passReducer = (state, action) =>{
+  if(action.type === 'PASS_INP'){
+    return({value: action.val, isValid: action.val.trim().length > 6})
+  }
+
+  else if(action.type === 'PASS_BLR'){
+    return ({ value: state.value, isValid: state.value.trim().length > 6})
+  }
+
+  else{
+    return ({value:'', isValid: false});
+  }
+}
+
 const Login = (props) => {
 
   // useReducer to handle multiple states
   const[emailState, dispatchEmail] = useReducer(emailReducer, 
     { 
       value:'',
-      isValid: ''
+      isValid: null
+    });
+
+
+  const [passState, dispatchPass] = useReducer(passReducer, 
+    {
+      value:'',
+      isValid: null,
     });
 
 
   // const [enteredEmail, setEnteredEmail] = useState('');
   // const [emailIsValid, setEmailIsValid] = useState();
-  const [enteredPassword, setEnteredPassword] = useState('');
-  const [passwordIsValid, setPasswordIsValid] = useState();
+  // const [enteredPassword, setEnteredPassword] = useState('');
+  // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
-
 
 
   const emailChangeHandler = (event) => {
     dispatchEmail({type:'EMAIL_INP',val:event.target.value});
     setFormIsValid(
-      emailState.isValid && enteredPassword.trim().length > 6
+      event.target.value.includes('@') && passState.isValid
     );
   };
 
   const passwordChangeHandler = (event) => {
-    setEnteredPassword(event.target.value);
+    dispatchPass({type:'PASS_INP',val:event.target.value});
     setFormIsValid(
       emailState.isValid && event.target.value.trim().length > 6
     );
@@ -66,12 +86,12 @@ const Login = (props) => {
 
   // instantenous validation check, border red if not valid
   const validatePasswordHandler = () => {
-    setPasswordIsValid(enteredPassword.trim().length > 6);
+    dispatchPass({type: 'PASS_BLR'});
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, enteredPassword);
+    props.onLogin(emailState.value, passState.value);
   };
 
   return (
@@ -93,14 +113,14 @@ const Login = (props) => {
         </div>
         <div
           className={`${classes.control} ${
-            passwordIsValid === false ? classes.invalid : ''
+            passState.isValid === false ? classes.invalid : ''
           }`}
         >
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            value={enteredPassword}
+            value={passState.value}
             onChange={passwordChangeHandler}
             onBlur={validatePasswordHandler}
           />
