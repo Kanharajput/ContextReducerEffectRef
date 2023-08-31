@@ -26,3 +26,7 @@ for their validation etc. Basically some action in response of some another acti
 - When we have multiple states and multiple dependencies then we should use it.
 - It is more complex than the useState but the outcome is same.
 - In current app we handle enteredEmail and isEnteredEmailValid state.
+
+### useEffect
+- It can also work useReducer props. If we want to run useEffect only at particular instance of useReducer changes, then 
+    we can achieve it.

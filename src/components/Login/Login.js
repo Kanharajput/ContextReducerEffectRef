@@ -1,4 +1,4 @@
-import React, { useState, useReducer} from 'react';
+import React, { useState, useReducer, useEffect} from 'react';
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
@@ -64,18 +64,30 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
 
+  // to set form valid
+  useEffect(() =>{
+    const timer = setTimeout(() => {
+      console.log('useEffect');
+      if (emailState.isValid && passState.isValid) {
+        setFormIsValid(true);
+      }
+      else {
+        setFormIsValid(false);
+      }
+    }, 500);
+
+    return (() =>{
+      clearTimeout(timer);
+    });
+  }, [emailState, passState]);
+
+
   const emailChangeHandler = (event) => {
     dispatchEmail({type:'EMAIL_INP',val:event.target.value});
-    setFormIsValid(
-      event.target.value.includes('@') && passState.isValid
-    );
   };
 
   const passwordChangeHandler = (event) => {
     dispatchPass({type:'PASS_INP',val:event.target.value});
-    setFormIsValid(
-      emailState.isValid && event.target.value.trim().length > 6
-    );
   };
 
   // onBlur methods run when user started inputing the next field
