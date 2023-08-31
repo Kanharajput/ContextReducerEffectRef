@@ -64,10 +64,13 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
 
-  // to set form valid
+  // get the valid variable from state
+  const{isValid: isEmailValid} = emailState;
+  const{isValid: isPassValid} = passState;
+
+  // only runs when the validity changes
   useEffect(() =>{
     const timer = setTimeout(() => {
-      console.log('useEffect');
       if (emailState.isValid && passState.isValid) {
         setFormIsValid(true);
       }
@@ -79,7 +82,7 @@ const Login = (props) => {
     return (() =>{
       clearTimeout(timer);
     });
-  }, [emailState, passState]);
+  }, [isEmailValid, isPassValid]);
 
 
   const emailChangeHandler = (event) => {

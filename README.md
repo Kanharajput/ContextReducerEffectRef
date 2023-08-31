@@ -30,3 +30,6 @@ for their validation etc. Basically some action in response of some another acti
 ### useEffect
 - It can also work useReducer props. If we want to run useEffect only at particular instance of useReducer changes, then 
     we can achieve it.
+- If isValid values changes then only useEffect we run again. If the password was valid and some characters are added more which
+    are not changing validity and there's no need to set the formValidity again and again as it remains the same.
+    -   ```const{isValid: isEmailValid} = emailState;``` object destructuring, isEmailValid is an alias.
