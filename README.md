@@ -49,4 +49,11 @@ for their validation etc. Basically some action in response of some another acti
     - The answer is when there are multiple components through which a props is passing and they are not using it they are just passing
         in this situation we should use context to directly send to a particular component which need it.
     - When a direct child needs a data then always use props.
+
+    #### We can create our own provider for a context which let the context behave like component.
+        - If the context name is AuthContext then custome provider should name AuthContextProvider.
+        - React automatically consider AuthContextProvider as a provider of AuthContext.
+        - We will access all the data items from AuthContext but all the behind scene work is done inside the AuthContextProvider.
+        - AuthContextProvider is used to wrap the component which needs AuthContext data.
+
     

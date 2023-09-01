@@ -1,7 +1,8 @@
-import React, { useState, useReducer, useEffect} from 'react';
+import React, { useState, useReducer, useEffect, useContext} from 'react';
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
+import AuthContext from '../../context/store/auth-context';
 
 
 // this function is automatically called by React, not depend on component
@@ -40,7 +41,7 @@ const passReducer = (state, action) =>{
   }
 }
 
-const Login = (props) => {
+const Login = () => {
 
   // useReducer to handle multiple states
   const[emailState, dispatchEmail] = useReducer(emailReducer, 
@@ -104,9 +105,12 @@ const Login = (props) => {
     dispatchPass({type: 'PASS_BLR'});
   };
 
+  // context instance
+  const ctx = useContext(AuthContext);
+
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passState.value);
+    ctx.onLogIn(emailState.value, passState.value);
   };
 
   return (
