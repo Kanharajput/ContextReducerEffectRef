@@ -56,4 +56,9 @@ for their validation etc. Basically some action in response of some another acti
         - We will access all the data items from AuthContext but all the behind scene work is done inside the AuthContextProvider.
         - AuthContextProvider is used to wrap the component which needs AuthContext data.
 
+    #### When not to use context
+        - Only use when we have to manage the state of whole app.(Many components depends on one particular state).
+        - Not used when have short props chain.
+        - When frequently state changes then it's performance drops. Frequently means within seconds.
+
     
