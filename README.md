@@ -38,7 +38,15 @@ for their validation etc. Basically some action in response of some another acti
 - It is used to pass the props directly to a component which is not the parent or child.
 - Basically we create a new component and store the data in needed format inside it, to access the data, wrap the components 
     which need this data using this component.
+- We can also pass a pointer to let the context getting component to execute a fucntion which is inside parent component
+
 - There are two ways to access the data.
     - One is using consumer
     - Another way is using useContext. Pass the context component as a arguement and it will return a variable using which 
         we can access the stored value.
+
+- When to use context and when to use props? 
+    - The answer is when there are multiple components through which a props is passing and they are not using it they are just passing
+        in this situation we should use context to directly send to a particular component which need it.
+    - When a direct child needs a data then always use props.
+    

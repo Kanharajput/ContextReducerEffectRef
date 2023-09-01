@@ -7,7 +7,7 @@ const Navigation = (props) => {
 
   // get the context
   const ctx = useContext(AuthContext);
-  
+
   return (
     <nav className={classes.nav}>
       <ul>
@@ -23,7 +23,7 @@ const Navigation = (props) => {
         )}
         {ctx.isLoggedIn && (
           <li>
-            <button onClick={props.onLogOut}>Logout</button>
+            <button onClick={ctx.onLogOut}>Logout</button>
           </li>
         )}
       </ul>

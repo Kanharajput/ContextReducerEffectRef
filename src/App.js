@@ -32,8 +32,12 @@ function App() {
     // Wrap all component inside AuthContext so that they can acess the data
     // Provider will make it component
     // value is provided by react to change values which are stored in context
-    <AuthContext.Provider value={{isLoggedIn:isLoggedIn}}>
-      <MainHeader onLogOut={logoutHandler}/>
+    <AuthContext.Provider value={
+      {
+        isLoggedIn:isLoggedIn,
+        onLogOut:logoutHandler
+      }}>
+      <MainHeader/>
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
         {/*Display Home after login */}
