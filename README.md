@@ -33,3 +33,10 @@ for their validation etc. Basically some action in response of some another acti
 - If isValid values changes then only useEffect we run again. If the password was valid and some characters are added more which
     are not changing validity and there's no need to set the formValidity again and again as it remains the same.
     -   ```const{isValid: isEmailValid} = emailState;``` object destructuring, isEmailValid is an alias.
+
+### React cotext api 
+- It is used to pass the props directly to a component which is not the parent or child.
+- Basically we create a new component and store the data in needed format inside it, to access the data, wrap the components 
+    which need this data using this component.
+- There are two ways to access the data.
+    - One is using consumer
