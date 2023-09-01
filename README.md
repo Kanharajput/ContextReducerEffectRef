@@ -60,5 +60,6 @@ for their validation etc. Basically some action in response of some another acti
         - Only use when we have to manage the state of whole app.(Many components depends on one particular state).
         - Not used when have short props chain.
         - When frequently state changes then it's performance drops. Frequently means within seconds.
+        - Don't use when want to reusable component.(props are used to create reusable component)
 
     
