@@ -40,3 +40,5 @@ for their validation etc. Basically some action in response of some another acti
     which need this data using this component.
 - There are two ways to access the data.
     - One is using consumer
+    - Another way is using useContext. Pass the context component as a arguement and it will return a variable using which 
+        we can access the stored value.
