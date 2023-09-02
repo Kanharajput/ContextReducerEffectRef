@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect, useContext} from 'react';
+import React, { useState, useReducer, useEffect, useContext, useRef} from 'react';
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
@@ -109,15 +109,32 @@ const Login = () => {
   // context instance
   const ctx = useContext(AuthContext);
 
+  // create the useRef
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+
   const submitHandler = (event) => {
     event.preventDefault();
-    ctx.onLogIn(emailState.value, passState.value);
+    if(formIsValid){
+      ctx.onLogIn(emailState.value, passState.value);
+    }
+    else if(!isEmailValid){
+      // focus is exskfsskfkjd
+      emailInputRef.current.focus();
+    }
+    else{
+      passwordInputRef.current.focus();
+    }
   };
+
+
+  // actia
 
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <Input 
+          ref={emailInputRef}
           state={emailState} 
           onChange={emailChangeHandler} 
           onBlur={validateEmailHandler} 
@@ -126,6 +143,7 @@ const Login = () => {
           label={"Email"}
           />
         <Input 
+          ref={passwordInputRef}
           state={passState} 
           onChange={passwordChangeHandler} 
           onBlur={validatePasswordHandler} 
@@ -135,7 +153,7 @@ const Login = () => {
           />        
         
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button type="submit" className={classes.btn}>
             Login
           </Button>
         </div>
